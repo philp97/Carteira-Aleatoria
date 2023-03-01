@@ -1,0 +1,20 @@
+set.seed(1)
+
+Industrial <- 1:96
+Ciclico <- 98:150
+Non_Ciclico <- 151:171
+Financial <- 172:220
+Basic_Material <- 221:239
+Petroleo_gas_bio <- 240:254
+Saude <- 255:273
+tec_info <- 274:294
+telecomunicacao <- 295:303
+utilidade_publica <- 304:331
+
+random_all_1 <- sample(1:331, 5, replace = FALSE)
+random_all_2 <- sample(1:331, 5, replace = FALSE)
+random_all_3 <- sample(1:331, 5, replace = FALSE)
+
+random_sector_1 <- sample(1:10, 5, replace = FALSE)
+random_sector_2 <- sample(1:10, 5, replace = FALSE)
+random_sector_3 <- sample(1:10, 5, replace = FALSE)
