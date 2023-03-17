@@ -1,0 +1,127 @@
+library(readr)
+library(readxl)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+
+set.seed(1997)
+
+Dataset <- read_excel("C:/Users/phabi/Desktop/MESTRADO/FGV/Carteira Aleatoria/1.xlsx",sheet = "Planilha2")
+head(Dataset)
+dataclean <- na.omit(Dataset)
+head(dataclean)
+
+dataclean_o <- dataclean %>%
+  separate('Tkr e Exch', c('Tiket','Exch'), ' ') %>%
+  select(-Ticker, -Exch) %>%
+  mutate(numero = 0)
+
+dataclean_o$numero <- 1:nrow(dataclean_o)
+
+str(dataclean_o)
+
+Energy <- dataclean_o %>%
+  filter(`GICS Setor` == 10) %>%
+  group_by(numero)
+
+Materials <- dataclean_o %>%
+  filter(`GICS Setor` == 15) %>%
+  group_by(numero)
+
+Industrial <- dataclean_o %>%
+  filter(`GICS Setor` == 20 )%>%
+  group_by(numero)
+
+Consumer_Discretionary <- dataclean_o %>%
+  filter(`GICS Setor` == 25) %>%
+  group_by(numero)
+
+
+Consumer_Staples <- dataclean_o %>%
+  filter(`GICS Setor` == 30) %>%
+  group_by(numero)
+
+Health_Care <- dataclean_o %>%
+  filter(`GICS Setor` == 35) %>%
+  group_by(numero)
+
+Financials <- dataclean_o %>%
+  filter(`GICS Setor` == 40) %>%
+  group_by(numero)
+
+Information_Technology <- dataclean_o %>%
+  filter(`GICS Setor` == 45) %>%
+  group_by(numero)
+
+Communication_Services <- dataclean_o %>%
+  filter(`GICS Setor` == 50) %>%
+  group_by(numero)
+
+Utilities <- dataclean_o %>%
+  filter(`GICS Setor` == 55) %>%
+  group_by(numero)
+
+Real_Estate <- dataclean_o %>%
+  filter(`GICS Setor` == 60) %>%
+  group_by(numero)
+
+# Wallets
+
+wallet_all_1 <- sample(1:nrow(dataclean_o), 5, replace = FALSE)
+wallet_all_2 <- sample(1:nrow(dataclean_o), 5, replace = FALSE)
+wallet_all_3 <- sample(1:nrow(dataclean_o), 5, replace = FALSE)
+
+wallet_sector <- c(sample(Energy$numero,1), sample(Materials$numero,1), sample(Industrial$numero,1), sample(Consumer_Discretionary$numero,1),sample(Consumer_Staples$numero,1), sample(Health_Care$numero,1), sample(Financials$numero,1), sample(Information_Technology$numero,1), sample(Communication_Services$numero,1), sample(Utilities$numero,1), sample(Real_Estate$numero,1))
+
+# Wallet 5 stocks
+# Energy - 1
+# Materials - 2
+# Industrial - 3
+# Consumer Discretionary - 4
+# Consumer Staples - 5
+# Health Care - 6
+# Financials - 7
+# Information Technology - 8
+# Communication Services - 9
+# Utilities - 10
+# Real Estate - 11
+
+
+sector_sample <- sample(1:11,5, replace = FALSE)
+sector_sample
+
+wallet_5 <- 0
+
+for (i in 1:length(sector_sample)) {
+  if (sector_sample[i] == 1) {
+    wallet_5[i] <- sample(Energy$numero, 1)
+  } else if (sector_sample[i] == 2) {
+    wallet_5[i] <- sample(Materials$numero, 1)
+  } else if (sector_sample[i] == 3) {
+    wallet_5[i] <- sample(Industrial$numero, 1)
+  } else if (sector_sample[i] == 4) {
+    wallet_5[i] <- sample(Consumer_Discretionary$numero, 1)
+  } else if (sector_sample[i] == 5) {
+    wallet_5[i] <- sample(Consumer_Staples$numero, 1)
+  } else if (sector_sample[i] == 6) {
+    wallet_5[i] <- sample(Health_Care$numero, 1)
+  } else if (sector_sample[i] == 7) {
+    wallet_5[i] <- sample(Financials$numero, 1)
+  } else if (sector_sample[i] == 8) {
+    wallet_5[i] <- sample(Information_Technology$numero, 1)
+  } else if (sector_sample[i] == 9) {
+    wallet_5[i] <- sample(Communication_Services$numero, 1)
+  } else if (sector_sample[i] == 10) {
+    wallet_5[i] <- sample(Utilities$numero, 1)
+  } else if (sector_sample[i] == 11) {
+    wallet_5[i] <- sample(Real_Estate$numero, 1)
+  }    
+}
+
+wallet_5
+ativo1 <- 0
+
+for (i in 1:length(wallet_5)) {
+  ativo1[i] <- dataclean_o$Tiket[wallet_5[i]]
+}
+ativo1
